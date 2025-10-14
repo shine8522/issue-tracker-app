@@ -5,8 +5,8 @@ const Task = require("../models/Task");
 // Get all tasks
 router.get("/", async (req, res) => {
   try {
-    const tasks = await Task.find({});
-    res.json(tasks);
+    const tasks = await Task.find({}).sort({ createdAt: -1 });
+    res.status(200).json(tasks);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -14,10 +14,19 @@ router.get("/", async (req, res) => {
 
 // Create a new task
 router.post("/", async (req, res) => {
-  const { title, description, status } = req.body;
+ 
+  const { title, description, status,priority } = req.body;
+  if(!title || !title.trim()){
+    return res.status(400).json({message: "Tile is required"});
+  }
   try {
-    const newTask = new Task({ title, description, status });
+    const newTask = new Task({ title, description, 
+      status: status|| "todo",
+      priority: priority,
+    });
+    
     const savedTask = await newTask.save();
+ 
     res.status(201).json(savedTask);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -26,14 +35,14 @@ router.post("/", async (req, res) => {
 
 // Update task status
 router.put("/:id", async (req, res) => {
-  const { status } = req.body;
+ 
   try {
     const updatedTask = await Task.findByIdAndUpdate(
-      req.params.id,
-      { status },
+      req.params.id,   { $set: req.body },
+     
       { new: true }
     );
-    res.json(updatedTask);
+    res.status(200).json(updatedTask);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -42,8 +51,11 @@ router.put("/:id", async (req, res) => {
 // Delete task (optional)
 router.delete("/:id", async (req, res) => {
   try {
-    await Task.findByIdAndDelete(req.params.id);
-    res.json({ message: "Task deleted" });
+     const deletedTask = await Task.findByIdAndDelete(req.params.id);
+    if (!deletedTask) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+     res.json({ message: "Task deleted" });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
