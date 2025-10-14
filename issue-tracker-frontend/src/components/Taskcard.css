@@ -1,0 +1,105 @@
+.task-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-card.dragging {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.task-card.dark-mode {
+  background-color: #2a2a2a;
+  color: #f3f4f6;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.task-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #ef4444;
+  transition: color 0.2s ease;
+}
+
+.delete-btn:hover {
+  color: #b91c1c;
+}
+
+.task-desc {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 0 0 8px 0;
+}
+
+.task-card.dark-mode .task-desc {
+  color: #d1d5db;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-badge,
+.priority-badge {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+/* Status colors */
+.status-todo {
+  background-color: #2563eb;
+}
+
+.status-inprogress {
+  background-color: #f59e0b;
+}
+
+.status-done {
+  background-color: #10b981;
+}
+
+/* Priority colors */
+.priority-low {
+  background-color: #6b7280;
+}
+
+.priority-medium {
+  background-color: #fbbf24;
+}
+
+.priority-high {
+  background-color: #ef4444;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .task-card {
+    width: 100%;
+  }
+}

@@ -1,0 +1,105 @@
+/* Column container */
+.column {
+  background-color: #f9fafb;
+  border-radius: 12px;
+  padding: 16px;
+  width: 300px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.column:hover {
+  transform: translateY(-2px);
+}
+
+/* Dark mode column */
+.column.dark-mode {
+  background-color: #1f2937;
+  color: #f9fafb;
+}
+
+/* Column header */
+.column-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.column.dark-mode .column-title {
+  color: #f3f4f6;
+}
+
+/* Task list inside column */
+.task-list {
+  flex: 1;
+  min-height: 100px;
+  padding: 4px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.task-list.drag-over {
+  background-color: #e0e7ff; /* Soft blue feedback */
+}
+
+.column.dark-mode .task-list.drag-over {
+  background-color: #374151; /* Dark mode drag feedback */
+}
+
+/* Empty column state */
+.empty-message {
+  text-align: center;
+  font-size: 14px;
+  color: #9ca3af;
+  margin-top: 20px;
+}
+
+.column.dark-mode .empty-message {
+  color: #d1d5db;
+}
+
+/* Add Task button */
+.add-task-btn {
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 500;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-task-btn:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.column.dark-mode .add-task-btn {
+  background-color: #3b82f6;
+}
+
+.column.dark-mode .add-task-btn:hover {
+  background-color: #60a5fa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .column {
+    width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .column {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+}
