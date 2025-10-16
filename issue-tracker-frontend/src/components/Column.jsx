@@ -1,35 +1,23 @@
+// src/components/Column.jsx
 import React from "react";
 import { Droppable } from "@hello-pangea/dnd";
 import TaskCard from "./Taskcard";
-import SkeletonLoader from "./skeletonLoader"; // Shows while loading tasks
+import SkeletonLoader from "./skeletonLoader"; 
 import "./Column.css";
 
-const Column = ({
-  title,
-  tasks,
-  droppableId,
-  openModal,
-  onDeleteTask,
-  isLoading,
-  darkMode,
-}) => {
+const Column = ({ title, tasks, droppableId, openModal, onDeleteTask, isLoading, darkMode }) => {
   return (
     <section className={`column ${darkMode ? "dark-mode" : ""}`}>
-      {/* Column header */}
       <h2 className="column-title">
-        {title}
-        <span className="task-count">({tasks?.length || 0})</span>
+        {title} <span className="task-count">({tasks?.length || 0})</span>
       </h2>
 
-      {/* Droppable area for drag and drop */}
       <Droppable droppableId={droppableId}>
         {(provided, snapshot) => (
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className={`task-list 
-              ${snapshot.isDraggingOver ? "drag-over" : ""}
-              ${tasks?.length === 0 ? "empty-list" : ""}`}
+            className={`task-list ${snapshot.isDraggingOver ? "drag-over" : ""} ${tasks?.length === 0 ? "empty-list" : ""}`}
           >
             {isLoading ? (
               <>
@@ -46,6 +34,7 @@ const Column = ({
                   index={index}
                   columnId={droppableId}
                   onDeleteTask={onDeleteTask}
+                  openModal={openModal} // ✅ pass modal
                   darkMode={darkMode}
                 />
               ))
@@ -54,7 +43,6 @@ const Column = ({
           </div>
         )}
       </Droppable>
-
     </section>
   );
 };

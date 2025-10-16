@@ -38,7 +38,9 @@
   margin-bottom: 16px;
   flex-shrink: 0;
 }
-
+.modal-editor{
+  border: 2px solid black;
+}
 /* Body wrapper */
 .modal-body {
   display: flex;
@@ -161,6 +163,26 @@
 
 .modal.dark-mode .save-btn { background-color: #3B82F6; }
 .modal.dark-mode .cancel-btn { background-color: #4B5563; }
+.ProseMirror li[data-type="taskItem"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;              /* space between checkbox and text */
+}
+
+.ProseMirror li[data-type="taskItem"]::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #000;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.ProseMirror li[data-type="taskItem"] > p {
+  margin: 0;
+  flex-grow: 1;
+}
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
