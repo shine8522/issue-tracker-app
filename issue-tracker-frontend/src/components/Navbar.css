@@ -87,6 +87,51 @@
   background-color: #4b5563;
 }
 
+/* Auth buttons (Login / Signup / Logout) */
+.login-btn,
+.signup-btn,
+.logout-btn {
+  background-color: #10b981;
+  color: #ffffff;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover,
+.signup-btn:hover,
+.logout-btn:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+}
+
+.navbar.dark-mode .login-btn,
+.navbar.dark-mode .signup-btn,
+.navbar.dark-mode .logout-btn {
+  background-color: #34d399;
+  color: #111827;
+}
+
+.navbar.dark-mode .login-btn:hover,
+.navbar.dark-mode .signup-btn:hover,
+.navbar.dark-mode .logout-btn:hover {
+  background-color: #10b981;
+}
+
+/* User name display */
+.user-name {
+  font-weight: 600;
+  margin-right: 8px;
+  color: #111827;
+}
+
+.navbar.dark-mode .user-name {
+  color: #f9fafb;
+}
+
 /* Responsive Navbar */
 @media (max-width: 768px) {
   .navbar {
@@ -99,10 +144,14 @@
     width: 100%;
     justify-content: center;
     gap: 8px;
+    flex-wrap: wrap;
   }
 
   .add-task-main-btn,
-  .theme-toggle-btn {
+  .theme-toggle-btn,
+  .login-btn,
+  .signup-btn,
+  .logout-btn {
     width: 48%;
   }
 }
