@@ -5,6 +5,7 @@ const router = express.Router();
 require('dotenv').config();
 
 const generateToken = (id) => {
+  console.log("jwt secre tkey",process.env.JWT_SECRET);
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
 
