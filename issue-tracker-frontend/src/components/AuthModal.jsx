@@ -30,47 +30,55 @@ const AuthModal = ({ type, closeModal }) => {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <button className="close-btn" onClick={closeModal}>
-          &times;
-        </button>
-        <h2>{type === "login" ? "Login" : "Signup"}</h2>
+   <div className="auth-modal-overlay">
+  <div className="auth-modal-content">
+    <button className="auth-modal-close" onClick={closeModal}>
+      &times;
+    </button>
+    <h2 className="auth-modal-title">{type === "login" ? "Login" : "Signup"}</h2>
 
-        <form onSubmit={handleSubmit}>
-          {type === "signup" && (
-            <input
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          )}
+    <form onSubmit={handleSubmit}>
+      {type === "signup" && (
+        <input
+          className="auth-modal-input"
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      )}
 
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+      <input
+        className="auth-modal-input"
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <input
+        className="auth-modal-input"
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
 
-          {error && <p className="error-msg">{error}</p>}
+      {error && <p className="auth-modal-error">{error}</p>}
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Please wait..." : type === "login" ? "Login" : "Signup"}
-          </button>
-        </form>
-      </div>
-    </div>
+      <button
+        className="auth-modal-button"
+        type="submit"
+        disabled={loading}
+      >
+        {loading ? "Please wait..." : type === "login" ? "Login" : "Signup"}
+      </button>
+    </form>
+  </div>
+</div>
+
   );
 };
 
