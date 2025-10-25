@@ -29,4 +29,26 @@ router.post('/', async (req, res) => {
   res.status(201).json(task);
 });
 
+// DELETE /tasks/:id
+router.delete('/:id', async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.id);
+
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    // Ensure the logged-in user owns the task
+    if (task.user.toString() !== req.user.id) {
+      return res.status(401).json({ message: "Not authorized to delete this task" });
+    }
+
+    await task.deleteOne();
+    res.json({ message: "Task deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Error deleting task" });
+  }
+});
+
+
 module.exports = router;

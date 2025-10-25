@@ -56,16 +56,24 @@ const Board = ({ tasks, setTasks, fetchTasks, darkMode }) => {
 
   // Delete task
   const deleteTask = async (taskId, columnId) => {
-    try {
-      await axios.delete(`${BASE_URL}/${taskId}`);
-      setTasks((prev) => ({
-        ...prev,
-        [columnId]: prev[columnId].filter((task) => task._id !== taskId),
-      }));
-    } catch (err) {
-      console.error("Error deleting task:", err);
-    }
-  };
+  try {
+    const token = localStorage.getItem("token"); 
+
+    await axios.delete(`${BASE_URL}/${taskId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    setTasks((prev) => ({
+      ...prev,
+      [columnId]: prev[columnId].filter((task) => task._id !== taskId),
+    }));
+  } catch (err) {
+    console.error("Error deleting task:", err);
+  }
+};
+
 
   // Save task from modal (create or update)
   const handleSave = async (taskData) => {
