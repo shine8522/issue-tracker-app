@@ -1,201 +1,238 @@
-/* Modal overlay */
+/* src/components/TaskModal.css */
+
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 16px;
-  overflow-y: auto; /* scroll overlay if viewport too small */
-  z-index: 9999;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
 }
 
-/* Modal container */
 .modal {
+  background: #ffffff;
+  color: #111827;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 540px;
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 500px;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 20px;
-  box-sizing: border-box;
-  max-height: 95vh;   /* modal never exceeds viewport */
-  overflow: hidden;
-  animation: scaleIn 0.2s ease;
+  overflow-y: auto;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+  animation: modalFade 0.2s ease-out;
+}
+
+@keyframes modalFade {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .modal.dark-mode {
-  background: #1F2937;
-  color: #F9FAFB;
+  background: #1f2937;
+  color: #f3f4f6;
 }
 
-/* Header */
 .modal-title {
-  font-size: 1.5rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 16px;
-  flex-shrink: 0;
-}
-.modal-editor{
-  border: 2px solid black;
-}
-/* Body wrapper */
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex: 1 1 auto;   /* modal body grows/shrinks based on content */
-  overflow: hidden;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-/* Input group */
+.modal.dark-mode .modal-title {
+  border-color: #374151;
+}
+
+.input-group,
+.description-container,
+.selectors {
+  padding: 0.75rem 1.5rem;
+}
+
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.5rem;
 }
 
-/* Inputs */
+.modal-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
 .modal-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #D1D5DB;
-  font-size: 14px;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
 }
 
 .modal-input:focus {
-  border-color: #2563EB;
   outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 
-/* Description */
-.description-container {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  overflow: auto;  /* scroll only if description + other content exceeds modal */
+.ai-button {
+  margin-top: 0.5rem;
+  align-self: flex-start;
+  background: #2563eb;
+  color: white;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.modal-richtext {
-  /* min-height: 80px; */
-  border: 1px solid #D1D5DB;
-  border-radius: 8px;
-  padding: 4px;
-  font-size: 14px;
+.ai-button:hover:not(:disabled) {
+  background: #1d4ed8;
 }
 
-/* Character count */
-.char-count {
-  font-size: 12px;
-  color: #9CA3AF;
-  text-align: right;
+.ai-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-/* Selectors */
+.modal-editor {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  min-height: 120px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  background: #fafafa;
+}
+
+.modal.dark-mode .modal-editor {
+  background: #111827;
+  border-color: #374151;
+}
+
 .selectors {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .selector-section {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  flex: 1;
 }
 
 .priority-group, .status-group {
   display: flex;
-  gap: 6px;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .priority-btn, .status-btn {
   flex: 1;
-  padding: 8px 0;
-  border-radius: 6px;
-  font-weight: 600;
+  padding: 0.4rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.4rem;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  background: transparent;
+  transition: 0.2s;
 }
 
-.priority-btn.active { color: white; }
-
-.status-btn.active {
-  background-color: #2563EB;
+.priority-btn.active {
   color: white;
-  border-color: #2563EB;
 }
-
-/* Footer */
+.status-btn.active{
+  color:rgba(37, 99, 235, 0.2)
+}
 .modal-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 16px;
-  flex-shrink: 0;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
 }
 
-/* Buttons */
+.modal.dark-mode .modal-footer {
+  border-color: #374151;
+  background: #1f2937;
+}
+
 .btn {
-  padding: 10px 16px;
-  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
   border: none;
   cursor: pointer;
-  font-weight: 600;
-  transition: all 0.25s ease;
+  transition: 0.2s;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+}
+
+.cancel-btn:hover {
+  background: #d1d5db;
 }
 
 .save-btn {
-  background-color: #2563EB;
+  background: #2563eb;
   color: white;
 }
 
-.save-btn:hover { background-color: #1E40AF; }
-
-.cancel-btn {
-  background-color: #E5E7EB;
+.save-btn:hover {
+  background: #1d4ed8;
+}
+/* ✅ Fix TipTap checkbox + text alignment */
+ul[data-type="taskList"] {
+  padding-left: 0;
+  list-style: none;
 }
 
-.cancel-btn:hover { background-color: #D1D5DB; }
-
-.modal.dark-mode .save-btn { background-color: #3B82F6; }
-.modal.dark-mode .cancel-btn { background-color: #4B5563; }
-.ProseMirror li[data-type="taskItem"] {
+ul[data-type="taskList"] li {
   display: flex;
   align-items: center;
-  gap: 8px;              /* space between checkbox and text */
+  gap: 8px;
+  margin: 6px 0;
+  line-height: 1.5;
 }
 
-.ProseMirror li[data-type="taskItem"]::before {
-  content: '';
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #000;
-  border-radius: 3px;
-  flex-shrink: 0;
+ul[data-type="taskList"] li label {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  cursor: pointer;
+  
 }
 
-.ProseMirror li[data-type="taskItem"] > p {
-  margin: 0;
-  flex-grow: 1;
+ul[data-type="taskList"] input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .modal {
-    width: 100%;
-    padding: 16px;
+    max-width: 100%;
+    height: 90vh;
+    max-height: none;
+    border-radius: 0.75rem;
   }
 
-  .modal-title { font-size: 1.25rem; }
-}
+  .modal-title {
+    font-size: 1.1rem;
+  }
 
-/* Animation */
-@keyframes scaleIn {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  .ai-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .modal-editor {
+    min-height: 100px;
+  }
 }
